@@ -28,3 +28,7 @@ export interface Hotel {
   price: number;
   currency: string;
 }
+
+export type HotelDetailStackParamList = {
+  HotelDetail: { hotel: Hotel };
+};

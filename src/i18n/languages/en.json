@@ -1,5 +1,6 @@
 {
   "hotelList": {
+    "loading": "Loading...",
     "title": "Hotels"
   }
 }
