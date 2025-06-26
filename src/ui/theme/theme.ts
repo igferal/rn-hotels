@@ -37,10 +37,15 @@ const theme = createTheme({
     },
     headerSmall: {
       fontWeight: 'bold',
+      fontSize: 20,
+    },
+    boldBody: {
+      fontWeight: 'bold',
       fontSize: 16,
+      lineHeight: 24,
     },
     defaults: {},
-  },
+  }
 });
 
 export type Theme = typeof theme;

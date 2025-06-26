@@ -1,7 +1,9 @@
-import { Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Hotel } from 'types/types';
 import Text from 'ui/components/restyles/Text';
-import Box from 'ui/components/restyles/Box';
+import Box from 'ui/components/restyles/Box'; 
+import { StarRating } from 'ui/components/custom/StarRating';
+import { FallbackImage } from 'ui/components/custom/FallbackImage';
 
 type HoteListElementProps = {
   hotel: Hotel;
@@ -16,25 +18,39 @@ export const HotelListElement = ({ hotel, onPress }: HoteListElementProps) => {
         alignItems="center"
         justifyContent="space-between"
         borderRadius={10}
+        shadowOffset={{ width: 0, height: 2 }}
+        shadowOpacity={0.25}
+        shadowRadius={3.84}
+        elevation={5}
         overflow="hidden"
       >
-        <Box flex={1} width="100%">
-          <Image source={{ uri: hotel.gallery[0] }} style={styles.image} />
-        </Box>
+        <FallbackImage
+          source={hotel.gallery[0]}
+          style={styles.image}
+        />
+
         <Box
+          marginTop="m"
+          width="100%"
           flexDirection="column"
-          alignItems="flex-end"
+          alignItems="flex-start"
           justifyContent="center"
         >
           <Text variant="headerSmall">{hotel.name}</Text>
-
+          <Text variant="body">
+            {hotel.location.city}, {hotel.location.address}
+          </Text>
           <Box
+            marginTop="s"
+            width="100%"
             flexDirection="row"
             alignItems="center"
             justifyContent="space-between"
           >
-            <Text>{hotel.userRating}</Text>
-            <Text>{hotel.price}</Text>
+            <StarRating rating={hotel.stars} />
+            <Text variant="headerSmall">
+              {hotel.price} {hotel.currency}
+            </Text>
           </Box>
         </Box>
       </Box>
@@ -48,7 +64,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 150,
+    height: 200,
     resizeMode: 'cover',
   },
 });

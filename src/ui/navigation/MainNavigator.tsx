@@ -16,6 +16,7 @@ const RootStack = createNativeStackNavigator({
       screen: HotelDetailScreen,
       options: {
         headerShown: false,
+        animation: 'slide_from_right',
       },
     },
   },
