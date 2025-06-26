@@ -1,7 +1,9 @@
 import { View, Text, FlatList } from 'react-native';
 import { useHotels } from 'api/useHotels';
+import { useTranslation } from 'react-i18next';
 
 export const HotelListScreen = () => {
+  const { t } = useTranslation();
   const { data, isLoading, error } = useHotels();
 
   if (isLoading) {
@@ -14,7 +16,7 @@ export const HotelListScreen = () => {
 
   return (
     <View>
-      <Text>Hotel List Screen</Text>
+      <Text>{t('hotelList.title')}</Text>
       <FlatList
         data={data}
         renderItem={({ item }) => <Text>{item.name}</Text>}
