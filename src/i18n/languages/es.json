@@ -1,6 +1,17 @@
 {
+  "filters": {
+    "title": "Filtros",
+    "price-asc": "Precio: Menor a Mayor",
+    "price-desc": "Precio: Mayor a Menor", 
+    "rating-asc": "Valoración: Menor a Mayor",
+    "rating-desc": "Valoración: Mayor a Menor",
+    "stars-asc": "Estrellas: Menor a Mayor",
+    "stars-desc": "Estrellas: Mayor a Menor"
+  },
   "hotelList": {
     "loading": "Cargando...",
     "title": "Hoteles"
-  }
+  },
+  "order": "Ordenar por",
+  "apply": "Aplicar"
 }

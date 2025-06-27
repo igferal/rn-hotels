@@ -14,10 +14,12 @@ import { StarRating } from 'ui/components/custom/StarRating';
 import { FallbackImage } from 'ui/components/custom/FallbackImage';
 import {
   Calendar1,
+  HotelIcon,
   MapPinIcon,
   PhoneIcon,
   UserRound,
 } from 'lucide-react-native';
+import MapView from 'react-native-maps';
 
 export const HotelDetailScreen = () => {
   // Hacky but typesafe
@@ -38,19 +40,11 @@ export const HotelDetailScreen = () => {
   };
 
   return (
-    <SafeAreaView edges={['top']}>
+    <SafeAreaView edges={['top', 'bottom']}>
       <FallbackImage source={hotel.gallery[0]} style={styles.image} />
       <ScrollView style={styles.container}>
         <Text variant="header">{hotel.name}</Text>
-        <TouchableOpacity
-          style={styles.inlineContainer}
-          onPress={onPressDirectionWithLatAndLong}
-        >
-          <MapPinIcon size={24} />
-          <Text variant="body" marginVertical="m">
-            {hotel.location.city} {hotel.location.address}
-          </Text>
-        </TouchableOpacity>
+
         <StarRating rating={hotel.stars} size={24} />
         <Box style={styles.sectionHeader}>
           <Calendar1 size={24} />
@@ -92,7 +86,29 @@ export const HotelDetailScreen = () => {
           <Text variant="headerSmall">{hotel.userRating} / 10</Text>
         </Box>
 
-        <Button title="Reservar" onPress={() => {}} style={styles.button} />
+        <Box style={styles.sectionHeader}>
+          <HotelIcon size={24} />
+          <Text variant="headerSmall">Location</Text>
+        </Box>
+        <TouchableOpacity
+          style={styles.inlineContainer}
+          onPress={onPressDirectionWithLatAndLong}
+        >
+          <MapPinIcon size={24} />
+          <Text variant="body" marginVertical="m">
+            {hotel.location.city} {hotel.location.address}
+          </Text>
+        </TouchableOpacity>
+        <MapView
+          initialRegion={{
+            latitude: hotel.location.latitude,
+            longitude: hotel.location.longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+          style={styles.map}
+        />
+        <Button title="Reservar" onPress={() => {}} />
       </ScrollView>
     </SafeAreaView>
   );
@@ -145,6 +161,11 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 16,
+    padding: 16,
+  },
+  map: {
+    width: '100%',
+    height: 200,
     padding: 16,
   },
 });

@@ -44,8 +44,13 @@ const theme = createTheme({
       fontSize: 16,
       lineHeight: 24,
     },
+    buttonText: {
+      fontWeight: 'bold',
+      fontSize: 18,
+      textTransform: 'uppercase',
+    },
     defaults: {},
-  }
+  },
 });
 
 export type Theme = typeof theme;

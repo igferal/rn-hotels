@@ -1,6 +1,17 @@
 {
+  "filters": {
+    "title": "Filters",
+    "price-asc": "Price: Low to High",
+    "price-desc": "Price: High to Low", 
+    "rating-asc": "Rating: Low to High",
+    "rating-desc": "Rating: High to Low",
+    "stars-asc": "Stars: Low to High",
+    "stars-desc": "Stars: High to Low"
+  },
   "hotelList": {
     "loading": "Loading...",
     "title": "Hotels"
-  }
+  },
+  "order": "Order by",
+  "apply": "Apply"
 }

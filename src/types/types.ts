@@ -29,6 +29,16 @@ export interface Hotel {
   currency: string;
 }
 
+export type OrderByOptions =
+  | 'price-asc'
+  | 'price-desc'
+  | 'rating-asc'
+  | 'rating-desc'
+  | 'stars-asc'
+  | 'stars-desc'
+  | 'name-asc'
+  | 'name-desc';
+
 export type HotelDetailStackParamList = {
   HotelDetail: { hotel: Hotel };
 };

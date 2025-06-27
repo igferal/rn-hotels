@@ -8,10 +8,11 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import Text from 'ui/components/restyles/Text';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LoadingHotelListComponent } from 'ui/components/hotel-list/LoadingHotelListComponent';
+import { FilterHotelsComponent } from 'ui/components/hotel-list/FilterHotelsComponent';
 
 export const HotelListScreen = () => {
   const { t } = useTranslation();
-  const { data, isLoading, error } = useHotels();
+  const { data, isLoading, error, setOrder, setFilters, order } = useHotels();
   const navigation =
     useNavigation<NativeStackNavigationProp<HotelDetailStackParamList>>();
 
@@ -38,6 +39,11 @@ export const HotelListScreen = () => {
             onPress={() => handleHotelPress(item)}
           />
         )}
+      />
+      <FilterHotelsComponent
+        setOrder={setOrder}
+        setFilters={setFilters}
+        order={order}
       />
     </SafeAreaView>
   );
