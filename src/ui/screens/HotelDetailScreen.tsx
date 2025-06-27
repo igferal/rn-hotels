@@ -15,15 +15,19 @@ import { FallbackImage } from 'ui/components/custom/FallbackImage';
 import {
   Calendar1,
   HotelIcon,
+  ImageIcon,
   MapPinIcon,
   PhoneIcon,
   UserRound,
 } from 'lucide-react-native';
 import MapView from 'react-native-maps';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const HotelDetailScreen = () => {
   // Hacky but typesafe
   const { hotel } = useRoute().params as { hotel: Hotel };
+  const { t } = useTranslation();
 
   const onPressEmail = () => {
     Linking.openURL(`mailto:${hotel.contact.email}`);
@@ -39,19 +43,23 @@ export const HotelDetailScreen = () => {
     );
   };
 
+  const [currentImagePreview, setCurrentImagePreview] = useState(
+    hotel.gallery[0],
+  );
+
   return (
     <SafeAreaView edges={['top', 'bottom']}>
-      <FallbackImage source={hotel.gallery[0]} style={styles.image} />
+      <FallbackImage source={currentImagePreview} style={styles.image} />
       <ScrollView style={styles.container}>
         <Text variant="header">{hotel.name}</Text>
 
         <StarRating rating={hotel.stars} size={24} />
         <Box style={styles.sectionHeader}>
           <Calendar1 size={24} />
-          <Text variant="headerSmall">Horarios</Text>
+          <Text variant="headerSmall">{t('hotelDetail.schedule')}</Text>
         </Box>
         <Box style={styles.infoRowWithMargin}>
-          <Text variant="boldBody">Check in:</Text>
+          <Text variant="boldBody">{t('hotelDetail.checkIn')}</Text>
           <Box style={styles.inlineContainer}>
             <Text variant="body">{hotel.checkIn.from}</Text>
             <Text variant="body"> - </Text>
@@ -59,7 +67,7 @@ export const HotelDetailScreen = () => {
           </Box>
         </Box>
         <Box style={styles.infoRow}>
-          <Text variant="boldBody">Check out:</Text>
+          <Text variant="boldBody">{t('hotelDetail.checkOut')}</Text>
           <Box style={styles.inlineContainer}>
             <Text variant="body">{hotel.checkOut.from}</Text>
             <Text variant="body"> - </Text>
@@ -68,27 +76,44 @@ export const HotelDetailScreen = () => {
         </Box>
         <Box style={styles.sectionHeader}>
           <PhoneIcon size={24} />
-          <Text variant="headerSmall">Contacto</Text>
+          <Text variant="headerSmall">{t('hotelDetail.contact')}</Text>
         </Box>
         <TouchableOpacity style={styles.contactInfoRow} onPress={onPressPhone}>
-          <Text variant="boldBody">Teléfono:</Text>
+          <Text variant="boldBody">{t('hotelDetail.phone')}</Text>
           <Text variant="body">{hotel.contact.phoneNumber}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.contactInfoRow} onPress={onPressEmail}>
-          <Text variant="boldBody">Email:</Text>
+          <Text variant="boldBody">{t('hotelDetail.email')}</Text>
           <Text variant="body">{hotel.contact.email}</Text>
         </TouchableOpacity>
         <Box style={styles.infoRow} marginVertical="m">
           <Box flexDirection="row" alignItems="center" gap="s">
             <UserRound size={24} />
-            <Text variant="headerSmall">User Rating</Text>
+            <Text variant="headerSmall">{t('hotelDetail.userRating')}</Text>
           </Box>
           <Text variant="headerSmall">{hotel.userRating} / 10</Text>
         </Box>
 
         <Box style={styles.sectionHeader}>
+          <ImageIcon size={24} />
+          <Text variant="headerSmall">{t('hotelDetail.imageGallery')}</Text>
+        </Box>
+
+        <ScrollView horizontal>
+          {hotel.gallery.map((image, index) => (
+            <TouchableOpacity
+              style={styles.previewImageContainer}
+              key={index}
+              onPress={() => setCurrentImagePreview(image)}
+            >
+              <FallbackImage source={image} style={styles.previewImage} />
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+
+        <Box style={styles.sectionHeader}>
           <HotelIcon size={24} />
-          <Text variant="headerSmall">Location</Text>
+          <Text variant="headerSmall">{t('hotelDetail.location')}</Text>
         </Box>
         <TouchableOpacity
           style={styles.inlineContainer}
@@ -108,7 +133,7 @@ export const HotelDetailScreen = () => {
           }}
           style={styles.map}
         />
-        <Button title="Reservar" onPress={() => {}} />
+        <Button title={t('hotelDetail.reserve')} onPress={() => {}} />
       </ScrollView>
     </SafeAreaView>
   );
@@ -167,5 +192,13 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 200,
     padding: 16,
+  },
+  previewImage: {
+    width: 50,
+    height: 50,
+    resizeMode: 'cover',
+  },
+  previewImageContainer: {
+    marginRight: 10,
   },
 });

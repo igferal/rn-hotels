@@ -1,17 +1,31 @@
 {
+  "apply": "Aplicar",
   "filters": {
-    "title": "Filtros",
     "price-asc": "Precio: Menor a Mayor",
-    "price-desc": "Precio: Mayor a Menor", 
+    "price-desc": "Precio: Mayor a Menor",
+    "priceUntil": "Costo máximo",
     "rating-asc": "Valoración: Menor a Mayor",
     "rating-desc": "Valoración: Mayor a Menor",
+    "stars": "Estrellas mínimas",
     "stars-asc": "Estrellas: Menor a Mayor",
-    "stars-desc": "Estrellas: Mayor a Menor"
+    "stars-desc": "Estrellas: Mayor a Menor",
+    "title": "Filtros"
+  },
+  "hotelDetail": {
+    "checkIn": "Check in:",
+    "checkOut": "Check out:",
+    "contact": "Contacto",
+    "email": "Email:",
+    "imageGallery": "Galería de Imágenes",
+    "location": "Ubicación",
+    "phone": "Teléfono:",
+    "reserve": "Reservar",
+    "schedule": "Horarios",
+    "userRating": "Valoración de Usuario"
   },
   "hotelList": {
     "loading": "Cargando...",
     "title": "Hoteles"
   },
-  "order": "Ordenar por",
-  "apply": "Aplicar"
+  "order": "Ordenar por"
 }

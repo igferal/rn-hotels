@@ -12,7 +12,8 @@ import { FilterHotelsComponent } from 'ui/components/hotel-list/FilterHotelsComp
 
 export const HotelListScreen = () => {
   const { t } = useTranslation();
-  const { data, isLoading, error, setOrder, setFilters, order } = useHotels();
+  const { data, isLoading, error, setOrder, setFilters, order, filters } =
+    useHotels();
   const navigation =
     useNavigation<NativeStackNavigationProp<HotelDetailStackParamList>>();
 
@@ -44,6 +45,7 @@ export const HotelListScreen = () => {
         setOrder={setOrder}
         setFilters={setFilters}
         order={order}
+        filters={filters}
       />
     </SafeAreaView>
   );

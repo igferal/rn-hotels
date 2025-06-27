@@ -1,7 +1,7 @@
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Hotel } from 'types/types';
 import Text from 'ui/components/restyles/Text';
-import Box from 'ui/components/restyles/Box'; 
+import Box from 'ui/components/restyles/Box';
 import { StarRating } from 'ui/components/custom/StarRating';
 import { FallbackImage } from 'ui/components/custom/FallbackImage';
 
@@ -18,16 +18,14 @@ export const HotelListElement = ({ hotel, onPress }: HoteListElementProps) => {
         alignItems="center"
         justifyContent="space-between"
         borderRadius={10}
-        shadowOffset={{ width: 0, height: 2 }}
+        shadowOffset={{ width: 1, height: 2 }}
         shadowOpacity={0.25}
         shadowRadius={3.84}
         elevation={5}
         overflow="hidden"
+        
       >
-        <FallbackImage
-          source={hotel.gallery[0]}
-          style={styles.image}
-        />
+        <FallbackImage source={hotel.gallery[0]} style={styles.image} />
 
         <Box
           marginTop="m"

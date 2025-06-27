@@ -10,18 +10,21 @@ import { useTheme } from '@shopify/restyle';
 
 import { Theme } from 'ui/theme/theme';
 import { useTranslation } from 'react-i18next';
-import { OrderByOptions } from 'types/types';
+import { FilterOptions, OrderByOptions } from 'types/types';
+import { SliderComponent } from 'ui/components/custom/SliderComponent';
 
 type FilterHotelsComponentProps = {
   setFilters: (filters: any) => void;
   setOrder: (order: OrderByOptions) => void;
   order: OrderByOptions;
+  filters: FilterOptions[];
 };
 
 export const FilterHotelsComponent = ({
   setFilters,
   setOrder,
   order,
+  filters,
 }: FilterHotelsComponentProps) => {
   const { colors } = useTheme<Theme>();
   const { t } = useTranslation();
@@ -59,7 +62,8 @@ export const FilterHotelsComponent = ({
     },
   ];
 
-  const [selectedOrder, setSelectedOrder] = useState<OrderByOptions>(order); 
+  const [selectedOrder, setSelectedOrder] = useState<OrderByOptions>(order);
+  const [selectedFilters, setSelectedFilters] = useState<FilterOptions[]>(filters);
 
   // ref
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -77,15 +81,15 @@ export const FilterHotelsComponent = ({
   }, []);
 
   const handleOpen = useCallback(() => {
-    bottomSheetRef.current?.snapToPosition(2);
+    bottomSheetRef.current?.snapToPosition(1);
     setIsVisible(true);
   }, []);
 
   const onApply = useCallback(() => {
-    setFilters({});
+    setFilters(selectedFilters);
     setOrder(selectedOrder);
     handleClose();
-  }, [setFilters, setOrder, handleClose, selectedOrder]);
+  }, [setFilters, setOrder, handleClose, selectedOrder, selectedFilters]);
 
   // renders
   return !isVisible ? (
@@ -107,19 +111,44 @@ export const FilterHotelsComponent = ({
       onClose={handleClose}
       enablePanDownToClose
       enableDynamicSizing
-      snapPoints={['50%', '75%']}
+      snapPoints={['75%', '90%']}
     >
       <BottomSheetView style={styles.contentContainer}>
-        <Text variant="header">{t('filters.title')}</Text>
+        <Text variant="headerSmall" marginBottom="s">
+          {t('filters.title')}
+        </Text>
+        <Text variant="body" marginBottom="s">
+          {t('filters.priceUntil')}
+        </Text>
+        <SliderComponent
+          value={selectedFilters.find(filter => filter.type === 'price')?.value || 0}
+          onValueChange={value =>
+            setSelectedFilters([{ type: 'price', value }])
+          }
+          upperLimit={200}
+          lowerLimit={0}
+        />
 
-
-
-        <Text variant="header">{t('order')}</Text>
+        <Text variant="body" marginBottom="s">
+          {t('filters.stars')}
+        </Text>
+        <SliderComponent
+          value={
+            selectedFilters.find(filter => filter.type === 'stars')?.value || 0
+          }
+          onValueChange={value => {
+            setSelectedFilters([{ type: 'stars', value }]);
+          }}
+          upperLimit={5}
+          lowerLimit={1}
+          reverse={true}
+        />
+        <Text variant="headerSmall">{t('order')}</Text>
 
         <RadioGroup
           containerStyle={styles.radioGroupContainer}
           radioButtons={radioButtons}
-          onPress={(value) => setSelectedOrder(value as OrderByOptions)}
+          onPress={value => setSelectedOrder(value as OrderByOptions)}
           layout="column"
           selectedId={selectedOrder}
         />

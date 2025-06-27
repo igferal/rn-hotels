@@ -2,13 +2,11 @@ import { createTheme } from '@shopify/restyle';
 
 const palette = {
   greenMain: '#0B7A75',
-  greenMainDarker: '#E19F66',
-  greenMainLighter: '#E19F66',
-
+  greenMainDarker: '#074B47',
+  greenMainLighter: '#11BBAF',
   orangeComplementary: '#BC6C25',
   orangeComplementaryLighter: '#C87900',
   orangeComplementaryDarker: '#E19F66',
-
   black: '#031926',
   white: '#FEFAE0',
 };
@@ -18,6 +16,8 @@ const theme = createTheme({
     whiteBackground: palette.white,
     textPrimary: palette.black,
     mainBackground: palette.greenMain,
+    mainBackgroundLighter: palette.greenMainLighter,
+    mainBackgroundDarker: palette.greenMainDarker,
     complementaryBackground: palette.orangeComplementary,
   },
   spacing: {

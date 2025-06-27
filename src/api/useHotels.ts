@@ -1,10 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
-import { Hotel, OrderByOptions } from 'types/types';
+import { FilterOptions, Hotel, OrderByOptions } from 'types/types';
 import { sortHotels } from 'utils/sorting';
+import { filterByCriteria } from 'utils/filters';
 
 export const useHotels = () => {
-  const [filters, setFilters] = useState<any>({});
+  const [filters, setFilters] = useState<FilterOptions[]>([]);
   const [order, setOrder] = useState<OrderByOptions>('price-asc');
 
   const fetchHotels = async () => {
@@ -13,11 +14,11 @@ export const useHotels = () => {
         'https://technology.lastminute.com/api/hotel.json',
       );
       const data = (await response.json()) as Hotel[];
-
-      return sortHotels(data, order);
+      const filteredHotels = filterByCriteria(data, filters);
+      return sortHotels(filteredHotels, order);
     } catch (error) {
-      console.error(error);
-      throw error;
+      console.log(error);
+      return [];
     }
   };
 
