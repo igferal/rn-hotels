@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import { ThemeProvider } from '@shopify/restyle';
-import { Button } from '../ui/components/custom/Button';
-import theme from '../ui/theme/theme';
+import { Button } from 'ui/components/custom/Button';
+import theme from 'ui/theme/theme';
 
 // Mock the restyle Text component
-jest.mock('../ui/components/restyles/Text', () => {
+jest.mock('ui/components/restyles/Text', () => {
   const { Text } = require('react-native');
   return (props: any) => <Text {...props} />;
 });

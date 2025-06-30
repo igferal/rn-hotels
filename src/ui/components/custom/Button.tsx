@@ -16,6 +16,7 @@ export type ButtonProps = {
   variant?: 'primary' | 'secondary';
   outline?: boolean;
   style?: StyleProp<ViewStyle>;
+  testID?: string;
 };
 
 export const Button = ({
@@ -24,6 +25,7 @@ export const Button = ({
   outline = false,
   variant = 'primary',
   style,
+  testID,
 }: ButtonProps) => {
   const { colors } = useTheme<Theme>();
 
@@ -43,6 +45,7 @@ export const Button = ({
     <TouchableOpacity
       style={[styles.button, { backgroundColor }, outlineStyle, style]}
       onPress={onPress}
+      testID={testID}
     >
       <Text variant="buttonText" style={[styles.text, { color: textColor }]}>
         {title}

@@ -12,7 +12,8 @@ type SliderComponentProps = {
   upperLimit: number;
   lowerLimit: number;
   reverse?: boolean;
-};
+  testID?: string;
+  };
 
 export const SliderComponent = ({
   value,
@@ -20,6 +21,7 @@ export const SliderComponent = ({
   upperLimit,
   lowerLimit,
   reverse = false,
+  testID,
 }: SliderComponentProps) => {
   const { colors } = useTheme<Theme>();
 
@@ -44,6 +46,7 @@ export const SliderComponent = ({
         <TextInput
           value={sliderValue.toString()}
           onChangeText={handleTextInputChange}
+          testID={`${testID}-input`}
         />
         <Text>{reverse ? lowerLimit : upperLimit}</Text>
       </Box>
@@ -54,6 +57,7 @@ export const SliderComponent = ({
         inverted={reverse}
         onValueChange={handleValueChange}
         minimumValue={lowerLimit}
+        testID={testID}
         maximumValue={upperLimit}
         step={1}
         minimumTrackTintColor={colors.mainBackgroundLighter}

@@ -25,7 +25,7 @@ export const FilterHotelsComponent = ({
   setOrder,
   order,
   filters,
-  maxHotelPrice
+  maxHotelPrice,
 }: FilterHotelsComponentProps) => {
   const { colors } = useTheme<Theme>();
   const { t } = useTranslation();
@@ -104,6 +104,7 @@ export const FilterHotelsComponent = ({
   // renders
   return !isVisible ? (
     <TouchableOpacity
+      testID="filterButton"
       onPress={handleOpen}
       style={[
         styles.circleButton,
@@ -131,6 +132,7 @@ export const FilterHotelsComponent = ({
           {t('filters.priceUntil')}
         </Text>
         <SliderComponent
+          testID="priceSlider"
           value={
             selectedFilters.find(filter => filter.type === 'price')?.value || 0
           }
@@ -145,6 +147,7 @@ export const FilterHotelsComponent = ({
           {t('filters.stars')}
         </Text>
         <SliderComponent
+          testID="starsSlider"
           value={
             selectedFilters.find(filter => filter.type === 'stars')?.value || 5
           }
@@ -164,9 +167,15 @@ export const FilterHotelsComponent = ({
           selectedId={selectedOrder}
         />
 
-        <Button title={t('apply')} variant="primary" onPress={onApply} />
         <Button
-          title={t('resetFilters')}
+          testID="applyFilters"
+          title={t('apply')}
+          variant="primary"
+          onPress={onApply}
+        />
+        <Button
+          testID="resetFilters"
+          title={t('reset')}
           variant="primary"
           outline
           onPress={onReset}
