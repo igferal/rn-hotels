@@ -31,6 +31,10 @@ const theme = createTheme({
       fontWeight: 'bold',
       fontSize: 34,
     },
+    hotelHeader: {
+      fontWeight: 'bold',
+      fontSize: 30,
+    },
     body: {
       fontSize: 16,
       lineHeight: 24,

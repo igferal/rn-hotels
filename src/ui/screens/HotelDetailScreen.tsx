@@ -18,6 +18,9 @@ import {
   MapPinIcon,
   PhoneIcon,
   UserRound,
+  MailIcon,
+  AlarmClockCheck,
+  AlarmClockMinus,
 } from 'lucide-react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { useState } from 'react';
@@ -54,40 +57,10 @@ export const HotelDetailScreen = () => {
         style={styles.container}
         contentContainerStyle={styles.scrollContent}
       >
-        <Text variant="header">{hotel.name}</Text>
+        <Text marginVertical="m" variant="hotelHeader">
+          {hotel.name}
+        </Text>
         <StarRating rating={hotel.stars} size={24} />
-        <Box style={styles.sectionHeader}>
-          <Calendar1 size={24} />
-          <Text variant="headerSmall">{t('hotelDetail.schedule')}</Text>
-        </Box>
-        <Box style={styles.infoRowWithMargin}>
-          <Text variant="boldBody">{t('hotelDetail.checkIn')}</Text>
-          <Box style={styles.inlineContainer}>
-            <Text variant="body">{hotel.checkIn.from}</Text>
-            <Text variant="body"> - </Text>
-            <Text variant="body">{hotel.checkIn.to}</Text>
-          </Box>
-        </Box>
-        <Box style={styles.infoRow}>
-          <Text variant="boldBody">{t('hotelDetail.checkOut')}</Text>
-          <Box style={styles.inlineContainer}>
-            <Text variant="body">{hotel.checkOut.from}</Text>
-            <Text variant="body"> - </Text>
-            <Text variant="body">{hotel.checkOut.to}</Text>
-          </Box>
-        </Box>
-        <Box style={styles.sectionHeader}>
-          <PhoneIcon size={24} />
-          <Text variant="headerSmall">{t('hotelDetail.contact')}</Text>
-        </Box>
-        <TouchableOpacity style={styles.contactInfoRow} onPress={onPressPhone}>
-          <Text variant="boldBody">{t('hotelDetail.phone')}</Text>
-          <Text variant="body">{hotel.contact.phoneNumber}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.contactInfoRow} onPress={onPressEmail}>
-          <Text variant="boldBody">{t('hotelDetail.email')}</Text>
-          <Text variant="body">{hotel.contact.email}</Text>
-        </TouchableOpacity>
         <Box style={styles.infoRow} marginVertical="m">
           <Box flexDirection="row" alignItems="center" gap="s">
             <UserRound size={24} />
@@ -95,6 +68,49 @@ export const HotelDetailScreen = () => {
           </Box>
           <Text variant="headerSmall">{hotel.userRating} / 10</Text>
         </Box>
+        <Box style={styles.sectionHeader}>
+          <Calendar1 size={24} />
+          <Text variant="headerSmall">{t('hotelDetail.schedule')}</Text>
+        </Box>
+        <Box style={styles.infoRowWithMargin}>
+          <Box flexDirection="row" alignItems="center" gap="s">
+            <AlarmClockCheck size={20} />
+            <Text variant="boldBody">{t('hotelDetail.checkIn')}</Text>
+          </Box>
+          <Box style={styles.inlineContainer}>
+            <Text variant="body">{hotel.checkIn.from}</Text>
+            <Text variant="body"> - </Text>
+            <Text variant="body">{hotel.checkIn.to}</Text>
+          </Box>
+        </Box>
+        <Box style={styles.infoRow}>
+          <Box flexDirection="row" alignItems="center" gap="s">
+            <AlarmClockMinus size={20} />
+            <Text variant="boldBody">{t('hotelDetail.checkOut')}</Text>
+          </Box>
+          <Box style={styles.inlineContainer}>
+            <Text variant="body">{hotel.checkOut.from}</Text>
+            <Text variant="body"> - </Text>
+            <Text variant="body">{hotel.checkOut.to}</Text>
+          </Box>
+        </Box>
+        <Box style={styles.sectionHeader}>
+          <Text variant="headerSmall">{t('hotelDetail.contact')}</Text>
+        </Box>
+        <TouchableOpacity style={styles.contactInfoRow} onPress={onPressPhone}>
+          <Box flexDirection="row" alignItems="center" gap="s">
+            <PhoneIcon size={20} />
+            <Text variant="boldBody">{t('hotelDetail.phone')}</Text>
+          </Box>
+          <Text variant="body">{hotel.contact.phoneNumber}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.contactInfoRow} onPress={onPressEmail}>
+          <Box flexDirection="row" alignItems="center" gap="s">
+            <MailIcon size={20} />
+            <Text variant="boldBody">{t('hotelDetail.email')}</Text>
+          </Box>
+          <Text variant="body">{hotel.contact.email}</Text>
+        </TouchableOpacity>
 
         <Box style={styles.sectionHeader}>
           <ImageIcon size={24} />
@@ -218,6 +234,6 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   scrollContent: {
-    paddingBottom: 200,
+    paddingBottom: 300, // Fix to be able to go to the bottom of the screen and having sticky image at the top
   },
 });

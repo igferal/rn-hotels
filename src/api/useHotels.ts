@@ -29,5 +29,7 @@ export const useHotels = () => {
     queryFn: () => fetchHotels(),
   });
 
-  return { data, isLoading, error, filters, setFilters, order, setOrder };
+  const maxHotelPrice = data?.reduce((max, hotel) => Math.max(max, hotel.price), 0);
+
+  return { data, isLoading, error, filters, setFilters, order, setOrder, maxHotelPrice };
 };

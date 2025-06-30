@@ -12,7 +12,7 @@ import { FilterHotelsComponent } from 'ui/components/hotel-list/FilterHotelsComp
 
 export const HotelListScreen = () => {
   const { t } = useTranslation();
-  const { data, isLoading, error, setOrder, setFilters, order, filters } =
+  const { data, isLoading, error, setOrder, setFilters, order, filters, maxHotelPrice } =
     useHotels();
   const navigation =
     useNavigation<NativeStackNavigationProp<HotelDetailStackParamList>>();
@@ -31,10 +31,9 @@ export const HotelListScreen = () => {
 
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
-      <Text variant="header">{t('hotelList.title')}</Text>
+      <Text variant="header" marginVertical="s">{t('hotelList.title')}</Text>
       <FlatList
         data={data}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
         renderItem={({ item }) => (
           <HotelListElement
             hotel={item}
@@ -53,6 +52,7 @@ export const HotelListScreen = () => {
         setFilters={setFilters}
         order={order}
         filters={filters}
+        maxHotelPrice={maxHotelPrice || 0}
       />
     </SafeAreaView>
   );

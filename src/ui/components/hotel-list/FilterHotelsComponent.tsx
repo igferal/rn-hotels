@@ -7,7 +7,6 @@ import RadioGroup from 'react-native-radio-buttons-group';
 
 import { Filter } from 'lucide-react-native';
 import { useTheme } from '@shopify/restyle';
-
 import { Theme } from 'ui/theme/theme';
 import { useTranslation } from 'react-i18next';
 import { FilterOptions, OrderByOptions } from 'types/types';
@@ -18,6 +17,7 @@ type FilterHotelsComponentProps = {
   setOrder: (order: OrderByOptions) => void;
   order: OrderByOptions;
   filters: FilterOptions[];
+  maxHotelPrice: number;
 };
 
 export const FilterHotelsComponent = ({
@@ -25,6 +25,7 @@ export const FilterHotelsComponent = ({
   setOrder,
   order,
   filters,
+  maxHotelPrice
 }: FilterHotelsComponentProps) => {
   const { colors } = useTheme<Theme>();
   const { t } = useTranslation();
@@ -136,7 +137,7 @@ export const FilterHotelsComponent = ({
           onValueChange={value =>
             setSelectedFilters([{ type: 'price', value }])
           }
-          upperLimit={200}
+          upperLimit={maxHotelPrice}
           lowerLimit={0}
         />
 
