@@ -3,7 +3,6 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
-  Button,
 } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { Hotel } from 'types/types';
@@ -20,9 +19,10 @@ import {
   PhoneIcon,
   UserRound,
 } from 'lucide-react-native';
-import MapView from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Button } from 'ui/components/custom/Button';
 
 export const HotelDetailScreen = () => {
   // Hacky but typesafe
@@ -48,11 +48,13 @@ export const HotelDetailScreen = () => {
   );
 
   return (
-    <SafeAreaView edges={['top', 'bottom']}>
+    <SafeAreaView edges={['bottom']}>
       <FallbackImage source={currentImagePreview} style={styles.image} />
-      <ScrollView style={styles.container}>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.scrollContent}
+      >
         <Text variant="header">{hotel.name}</Text>
-
         <StarRating rating={hotel.stars} size={24} />
         <Box style={styles.sectionHeader}>
           <Calendar1 size={24} />
@@ -128,12 +130,27 @@ export const HotelDetailScreen = () => {
           initialRegion={{
             latitude: hotel.location.latitude,
             longitude: hotel.location.longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.01,
           }}
           style={styles.map}
-        />
-        <Button title={t('hotelDetail.reserve')} onPress={() => {}} />
+        >
+          <Marker
+            coordinate={{
+              latitude: hotel.location.latitude,
+              longitude: hotel.location.longitude,
+            }}
+            title={hotel.name}
+            description={`${hotel.location.city} ${hotel.location.address}`}
+          />
+        </MapView>
+        <Box marginTop="m">
+          <Button
+            variant="primary"
+            onPress={() => {}}
+            title={t('hotelDetail.reserve')}
+          />
+        </Box>
       </ScrollView>
     </SafeAreaView>
   );
@@ -142,11 +159,10 @@ export const HotelDetailScreen = () => {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
-    marginTop: 16,
   },
   image: {
     width: '100%',
-    height: 200,
+    height: 300,
     resizeMode: 'cover',
   },
   sectionHeader: {
@@ -191,7 +207,7 @@ const styles = StyleSheet.create({
   map: {
     width: '100%',
     height: 200,
-    padding: 16,
+    borderRadius: 10,
   },
   previewImage: {
     width: 50,
@@ -200,5 +216,8 @@ const styles = StyleSheet.create({
   },
   previewImageContainer: {
     marginRight: 10,
+  },
+  scrollContent: {
+    paddingBottom: 200,
   },
 });
