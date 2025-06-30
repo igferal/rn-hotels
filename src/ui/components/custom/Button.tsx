@@ -1,4 +1,10 @@
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  StyleProp,
+  StyleSheet,
+  TouchableOpacity,
+  TouchableOpacityProps,
+  ViewStyle,
+} from 'react-native';
 import Text from 'ui/components/restyles/Text';
 import { useTheme } from '@shopify/restyle';
 
@@ -8,13 +14,16 @@ export type ButtonProps = {
   title: string;
   onPress: () => void;
   variant?: 'primary' | 'secondary';
+  outline?: boolean;
+  style?: StyleProp<ViewStyle>;
 };
 
 export const Button = ({
   title,
   onPress,
-
+  outline = false,
   variant = 'primary',
+  style,
 }: ButtonProps) => {
   const { colors } = useTheme<Theme>();
 
@@ -23,12 +32,19 @@ export const Button = ({
       ? colors.mainBackground
       : colors.complementaryBackground;
 
+  const outlineStyle = outline && {
+    borderWidth: 1,
+    borderColor: backgroundColor,
+    backgroundColor: colors.whiteBackground,
+  };
+  const textColor = outline ? backgroundColor : colors.whiteBackground;
+
   return (
     <TouchableOpacity
-      style={[styles.button, { backgroundColor }]}
+      style={[styles.button, { backgroundColor }, outlineStyle, style]}
       onPress={onPress}
     >
-      <Text variant="buttonText" style={styles.text}>
+      <Text variant="buttonText" style={[styles.text, { color: textColor }]}>
         {title}
       </Text>
     </TouchableOpacity>

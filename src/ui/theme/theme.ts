@@ -8,7 +8,7 @@ const palette = {
   orangeComplementaryLighter: '#C87900',
   orangeComplementaryDarker: '#E19F66',
   black: '#031926',
-  white: '#FEFAE0',
+  white: '#FFFFFF',
 };
 
 const theme = createTheme({

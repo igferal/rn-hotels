@@ -8,6 +8,9 @@ export const useHotels = () => {
   const [filters, setFilters] = useState<FilterOptions[]>([]);
   const [order, setOrder] = useState<OrderByOptions>('price-asc');
 
+  console.log('filters', filters);
+  console.log('order', order);
+
   const fetchHotels = async () => {
     try {
       const response = await fetch(
@@ -17,7 +20,6 @@ export const useHotels = () => {
       const filteredHotels = filterByCriteria(data, filters);
       return sortHotels(filteredHotels, order);
     } catch (error) {
-      console.log(error);
       return [];
     }
   };

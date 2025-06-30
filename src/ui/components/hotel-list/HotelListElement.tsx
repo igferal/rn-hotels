@@ -12,18 +12,16 @@ type HoteListElementProps = {
 
 export const HotelListElement = ({ hotel, onPress }: HoteListElementProps) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={[styles.container, styles.shadowContainer]}
+    >
       <Box
         flexDirection="column"
         alignItems="center"
         justifyContent="space-between"
         borderRadius={10}
-        shadowOffset={{ width: 1, height: 2 }}
-        shadowOpacity={0.25}
-        shadowRadius={3.84}
-        elevation={5}
         overflow="hidden"
-        
       >
         <FallbackImage source={hotel.gallery[0]} style={styles.image} />
 
@@ -33,6 +31,7 @@ export const HotelListElement = ({ hotel, onPress }: HoteListElementProps) => {
           flexDirection="column"
           alignItems="flex-start"
           justifyContent="center"
+          paddingVertical="s"
         >
           <Text variant="headerSmall">{hotel.name}</Text>
           <Text variant="body">
@@ -64,5 +63,20 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 200,
     resizeMode: 'cover',
+  },
+  shadowContainer: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 30,
+    borderRadius: 10,
+    backgroundColor: 'white',
+    marginVertical: 10,
+    borderWidth: 1,
+    borderColor: 'lightgray',
   },
 });

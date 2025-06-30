@@ -6,7 +6,7 @@
     "priceUntil": "Max Cost",
     "rating-asc": "Rating: Low to High",
     "rating-desc": "Rating: High to Low",
-    "stars": "Minimum stars",
+    "stars": "Stars",
     "stars-asc": "Stars: Low to High",
     "stars-desc": "Stars: High to Low",
     "title": "Filters"
@@ -24,8 +24,10 @@
     "userRating": "User Rating"
   },
   "hotelList": {
+    "empty": "No hotels to show, please clean your filters",
     "loading": "Loading...",
     "title": "Hotels"
   },
-  "order": "Order by"
+  "order": "Order by",
+  "resetFilters": "Reset Filters"
 }

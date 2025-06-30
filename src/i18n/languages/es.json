@@ -6,7 +6,7 @@
     "priceUntil": "Costo máximo",
     "rating-asc": "Valoración: Menor a Mayor",
     "rating-desc": "Valoración: Mayor a Menor",
-    "stars": "Estrellas mínimas",
+    "stars": "Estrellas",
     "stars-asc": "Estrellas: Menor a Mayor",
     "stars-desc": "Estrellas: Mayor a Menor",
     "title": "Filtros"
@@ -27,5 +27,6 @@
     "loading": "Cargando...",
     "title": "Hoteles"
   },
-  "order": "Ordenar por"
+  "order": "Ordenar por",
+  "resetFilters": "Limpiar filtros"
 }

@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { useHotels } from 'api/useHotels';
 import { useTranslation } from 'react-i18next';
 import { HotelListElement } from 'ui/components/hotel-list/HotelListElement';
@@ -34,12 +34,19 @@ export const HotelListScreen = () => {
       <Text variant="header">{t('hotelList.title')}</Text>
       <FlatList
         data={data}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
         renderItem={({ item }) => (
           <HotelListElement
             hotel={item}
             onPress={() => handleHotelPress(item)}
           />
         )}
+        keyExtractor={item => item.id.toString()}
+        ListEmptyComponent={
+          <View style={styles.emptyContainer}>
+            <Text variant="body">{t('hotelList.empty')}</Text>
+          </View>
+        }
       />
       <FilterHotelsComponent
         setOrder={setOrder}
@@ -55,5 +62,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 16,
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 100,
+  },
+  separator: {
+    borderStyle: 'dashed',
+    borderColor: 'lightgray',
+    borderWidth: 1,
   },
 });

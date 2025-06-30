@@ -63,7 +63,8 @@ export const FilterHotelsComponent = ({
   ];
 
   const [selectedOrder, setSelectedOrder] = useState<OrderByOptions>(order);
-  const [selectedFilters, setSelectedFilters] = useState<FilterOptions[]>(filters);
+  const [selectedFilters, setSelectedFilters] =
+    useState<FilterOptions[]>(filters);
 
   // ref
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -91,6 +92,14 @@ export const FilterHotelsComponent = ({
     handleClose();
   }, [setFilters, setOrder, handleClose, selectedOrder, selectedFilters]);
 
+  const onReset = useCallback(() => {
+    setSelectedFilters([]);
+    setFilters([]);
+    setSelectedOrder('price-asc');
+    setOrder('price-asc');
+    handleClose();
+  }, [setSelectedFilters, setSelectedOrder, handleClose, setFilters, setOrder]);
+
   // renders
   return !isVisible ? (
     <TouchableOpacity
@@ -111,7 +120,7 @@ export const FilterHotelsComponent = ({
       onClose={handleClose}
       enablePanDownToClose
       enableDynamicSizing
-      snapPoints={['75%', '90%']}
+      snapPoints={['80%', '90%']}
     >
       <BottomSheetView style={styles.contentContainer}>
         <Text variant="headerSmall" marginBottom="s">
@@ -121,7 +130,9 @@ export const FilterHotelsComponent = ({
           {t('filters.priceUntil')}
         </Text>
         <SliderComponent
-          value={selectedFilters.find(filter => filter.type === 'price')?.value || 0}
+          value={
+            selectedFilters.find(filter => filter.type === 'price')?.value || 0
+          }
           onValueChange={value =>
             setSelectedFilters([{ type: 'price', value }])
           }
@@ -134,14 +145,13 @@ export const FilterHotelsComponent = ({
         </Text>
         <SliderComponent
           value={
-            selectedFilters.find(filter => filter.type === 'stars')?.value || 0
+            selectedFilters.find(filter => filter.type === 'stars')?.value || 5
           }
           onValueChange={value => {
             setSelectedFilters([{ type: 'stars', value }]);
           }}
           upperLimit={5}
           lowerLimit={1}
-          reverse={true}
         />
         <Text variant="headerSmall">{t('order')}</Text>
 
@@ -154,6 +164,13 @@ export const FilterHotelsComponent = ({
         />
 
         <Button title={t('apply')} variant="primary" onPress={onApply} />
+        <Button
+          title={t('resetFilters')}
+          variant="primary"
+          outline
+          onPress={onReset}
+          style={{ marginTop: 10 }}
+        />
       </BottomSheetView>
     </BottomSheet>
   );
