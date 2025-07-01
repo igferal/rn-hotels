@@ -26,11 +26,14 @@ import MapView, { Marker } from 'react-native-maps';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'ui/components/custom/Button';
+import { useTheme } from '@shopify/restyle';
+import { Theme } from 'ui/theme/theme';
 
 export const HotelDetailScreen = () => {
   // Hacky but typesafe
   const { hotel } = useRoute().params as { hotel: Hotel };
   const { t } = useTranslation();
+  const theme = useTheme<Theme>();
 
   const onPressEmail = () => {
     Linking.openURL(`mailto:${hotel.contact.email}`);
@@ -63,18 +66,21 @@ export const HotelDetailScreen = () => {
         <StarRating rating={hotel.stars} size={24} />
         <Box style={styles.infoRow} marginVertical="m">
           <Box flexDirection="row" alignItems="center" gap="s">
-            <UserRound size={24} />
+            <UserRound size={24} color={theme.colors.mainBackgroundDarker} />
             <Text variant="headerSmall">{t('hotelDetail.userRating')}</Text>
           </Box>
           <Text variant="headerSmall">{hotel.userRating} / 10</Text>
         </Box>
         <Box style={styles.sectionHeader}>
-          <Calendar1 size={24} />
+          <Calendar1 size={24} color={theme.colors.mainBackgroundDarker} />
           <Text variant="headerSmall">{t('hotelDetail.schedule')}</Text>
         </Box>
         <Box style={styles.infoRowWithMargin}>
           <Box flexDirection="row" alignItems="center" gap="s">
-            <AlarmClockCheck size={20} />
+            <AlarmClockCheck
+              size={20}
+              color={theme.colors.mainBackgroundDarker}
+            />
             <Text variant="boldBody">{t('hotelDetail.checkIn')}</Text>
           </Box>
           <Box style={styles.inlineContainer}>
@@ -85,7 +91,10 @@ export const HotelDetailScreen = () => {
         </Box>
         <Box style={styles.infoRow}>
           <Box flexDirection="row" alignItems="center" gap="s">
-            <AlarmClockMinus size={20} />
+            <AlarmClockMinus
+              size={20}
+              color={theme.colors.mainBackgroundDarker}
+            />
             <Text variant="boldBody">{t('hotelDetail.checkOut')}</Text>
           </Box>
           <Box style={styles.inlineContainer}>
@@ -99,21 +108,21 @@ export const HotelDetailScreen = () => {
         </Box>
         <TouchableOpacity style={styles.contactInfoRow} onPress={onPressPhone}>
           <Box flexDirection="row" alignItems="center" gap="s">
-            <PhoneIcon size={20} />
+            <PhoneIcon size={20} color={theme.colors.mainBackgroundDarker} />
             <Text variant="boldBody">{t('hotelDetail.phone')}</Text>
           </Box>
           <Text variant="body">{hotel.contact.phoneNumber}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.contactInfoRow} onPress={onPressEmail}>
           <Box flexDirection="row" alignItems="center" gap="s">
-            <MailIcon size={20} />
+            <MailIcon size={20} color={theme.colors.mainBackgroundDarker} />
             <Text variant="boldBody">{t('hotelDetail.email')}</Text>
           </Box>
           <Text variant="body">{hotel.contact.email}</Text>
         </TouchableOpacity>
 
         <Box style={styles.sectionHeader}>
-          <ImageIcon size={24} />
+          <ImageIcon size={24} color={theme.colors.mainBackgroundDarker} />
           <Text variant="headerSmall">{t('hotelDetail.imageGallery')}</Text>
         </Box>
 
@@ -130,14 +139,14 @@ export const HotelDetailScreen = () => {
         </ScrollView>
 
         <Box style={styles.sectionHeader}>
-          <HotelIcon size={24} />
+          <HotelIcon size={24} color={theme.colors.mainBackgroundDarker} />
           <Text variant="headerSmall">{t('hotelDetail.location')}</Text>
         </Box>
         <TouchableOpacity
           style={styles.inlineContainer}
           onPress={onPressDirectionWithLatAndLong}
         >
-          <MapPinIcon size={24} />
+          <MapPinIcon size={24} color={theme.colors.mainBackgroundDarker} />
           <Text variant="body" marginVertical="m">
             {hotel.location.city} {hotel.location.address}
           </Text>

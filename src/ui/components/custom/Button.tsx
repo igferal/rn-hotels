@@ -2,12 +2,10 @@ import {
   StyleProp,
   StyleSheet,
   TouchableOpacity,
-  TouchableOpacityProps,
   ViewStyle,
 } from 'react-native';
 import Text from 'ui/components/restyles/Text';
 import { useTheme } from '@shopify/restyle';
-
 import { Theme } from 'ui/theme/theme';
 
 export type ButtonProps = {
