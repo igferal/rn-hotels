@@ -10,9 +10,9 @@ const filterByCriteria = (hotels: Hotel[], filters: FilterOptions[]) => {
         case 'price':
           return hotel.price <= filter.value;
         case 'stars':
-          return hotel.stars >= filter.value;
+          return hotel.stars <= filter.value;
         case 'userRating':
-          return hotel.userRating >= filter.value;
+          return hotel.userRating <= filter.value;
         default:
           return true;
       }
