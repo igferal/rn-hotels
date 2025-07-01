@@ -4,18 +4,20 @@ import { FilterOptions, Hotel, OrderByOptions } from 'types/types';
 import { sortHotels } from 'utils/sorting';
 import { filterByCriteria } from 'utils/filters';
 
+const API_URL = 'https://technology.lastminute.com/api/hotel.json';
+
+/***
+ * This hook is used to fetch the hotels from the API.
+ * Even is a json using react query allow us to cache the data and use it in the app.
+ * We also here mock the filters and order by options.
+ */
 export const useHotels = () => {
   const [filters, setFilters] = useState<FilterOptions[]>([]);
   const [order, setOrder] = useState<OrderByOptions>('price-asc');
 
-  console.log('filters', filters);
-  console.log('order', order);
-
   const fetchHotels = async () => {
     try {
-      const response = await fetch(
-        'https://technology.lastminute.com/api/hotel.json',
-      );
+      const response = await fetch(API_URL);
       const data = (await response.json()) as Hotel[];
       const filteredHotels = filterByCriteria(data, filters);
       return sortHotels(filteredHotels, order);
@@ -29,7 +31,19 @@ export const useHotels = () => {
     queryFn: () => fetchHotels(),
   });
 
-  const maxHotelPrice = data?.reduce((max, hotel) => Math.max(max, hotel.price), 0);
+  const maxHotelPrice = data?.reduce(
+    (max, hotel) => Math.max(max, hotel.price),
+    0,
+  );
 
-  return { data, isLoading, error, filters, setFilters, order, setOrder, maxHotelPrice };
+  return {
+    data,
+    isLoading,
+    error,
+    filters,
+    setFilters,
+    order,
+    setOrder,
+    maxHotelPrice,
+  };
 };

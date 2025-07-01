@@ -8,6 +8,9 @@ export type StarRatingProps = {
   size?: number;
 };
 
+/**
+ *  Simple star rating component
+ */
 export const StarRating = ({ rating, size = 16 }: StarRatingProps) => {
   const theme = useTheme<Theme>();
 
@@ -19,7 +22,7 @@ export const StarRating = ({ rating, size = 16 }: StarRatingProps) => {
           color={
             index < rating
               ? theme.colors.complementaryBackground
-                 : theme.colors.textPrimary
+              : theme.colors.textPrimary
           }
           fill={index < rating ? theme.colors.complementaryBackground : 'none'}
           width={size}

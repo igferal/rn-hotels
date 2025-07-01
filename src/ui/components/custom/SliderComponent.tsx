@@ -15,6 +15,11 @@ type SliderComponentProps = {
   testID?: string;
   };
 
+/**
+ * Custom slider component, providing theme support, upper and lower limits.
+ * User can input manually values too.
+ */
+
 export const SliderComponent = ({
   value,
   onValueChange,

@@ -7,6 +7,9 @@ export type FallbackImageProps = {
   fallbackImageUri?: string;
 };
 
+/**
+ * Multiple of the api images are broken so we need to use a fallback image.
+ */
 export const FallbackImage = ({
   source,
   style,

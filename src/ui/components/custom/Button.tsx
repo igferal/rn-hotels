@@ -17,6 +17,9 @@ export type ButtonProps = {
   testID?: string;
 };
 
+/***
+ * Custom button implementation, allows to use variants, and outlined styles.
+ */
 export const Button = ({
   title,
   onPress,

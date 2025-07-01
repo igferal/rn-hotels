@@ -20,6 +20,10 @@ type FilterHotelsComponentProps = {
   maxHotelPrice: number;
 };
 
+/**
+ * Simple component that sets filters and order in the hotel list.
+ * State is local and it only applies to the hotel list when the user applies the filters.
+ */
 export const FilterHotelsComponent = ({
   setFilters,
   setOrder,

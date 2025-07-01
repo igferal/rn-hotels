@@ -3,6 +3,9 @@ import { Hotel } from 'types/types';
 
 type SortingFunction = (a: Hotel, b: Hotel) => number;
 
+/**
+ * Simple function that sorts the hotels by the criteria provided by the user.
+ */
 export const sortHotels = (hotels: Hotel[], order: OrderByOptions) => {
   const orderingFunctions: Record<OrderByOptions, SortingFunction> = {
     'price-asc': (a, b) => a.price - b.price,

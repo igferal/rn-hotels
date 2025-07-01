@@ -3,6 +3,7 @@ import { initReactI18next } from 'react-i18next';
 import en from 'i18n/languages/en.json';
 import es from 'i18n/languages/es.json';
 
+// Hardcoded for now, but we could use the device language in the future.
 const deviceLanguage = 'en';
 
 const resources = {

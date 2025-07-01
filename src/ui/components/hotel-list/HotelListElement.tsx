@@ -12,6 +12,9 @@ type HoteListElementProps = {
   onPress: () => void;
 };
 
+/**
+ * Simple component that displays a hotel in the hotel list.
+ */
 export const HotelListElement = ({ hotel, onPress }: HoteListElementProps) => {
   const theme = useTheme<Theme>();
 
