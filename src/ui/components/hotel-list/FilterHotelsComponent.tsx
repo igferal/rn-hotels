@@ -4,8 +4,8 @@ import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import Text from 'ui/components/restyles/Text';
 import { Button } from 'ui/components/custom/Button';
 import RadioGroup from 'react-native-radio-buttons-group';
-
-import { Filter } from 'lucide-react-native';
+import Box from 'ui/components/restyles/Box';
+import { ArrowUp, ArrowUpDown, Coins, Filter, Star } from 'lucide-react-native';
 import { useTheme } from '@shopify/restyle';
 import { Theme } from 'ui/theme/theme';
 import { useTranslation } from 'react-i18next';
@@ -129,12 +129,16 @@ export const FilterHotelsComponent = ({
       snapPoints={['85%', '90%']}
     >
       <BottomSheetView style={styles.contentContainer}>
-        <Text variant="headerSmall" accessibilityLabel={t('filters.title')} marginBottom="s">
-          {t('filters.title')}
-        </Text>
-        <Text variant="body" marginBottom="s">
-          {t('filters.priceUntil')}
-        </Text>
+        <Box style={styles.optionRow}>
+          <Filter size={24} color={colors.mainBackgroundDarker} />
+          <Text variant="headerSmall" accessibilityLabel={t('filters.title')}>
+            {t('filters.title')}
+          </Text>
+        </Box>
+        <Box style={styles.optionRow}>
+          <Coins size={24} color={colors.mainBackgroundDarker} />
+          <Text variant="body">{t('filters.priceUntil')}</Text>
+        </Box>
         <SliderComponent
           testID="priceSlider"
           value={
@@ -147,9 +151,11 @@ export const FilterHotelsComponent = ({
           lowerLimit={0}
         />
 
-        <Text variant="body" marginBottom="s">
-          {t('filters.stars')}
-        </Text>
+        <Box style={[styles.optionRow, { marginTop: 10 }]}>
+          <Star size={24} color={colors.mainBackgroundDarker} />
+          <Text variant="body">{t('filters.stars')}</Text>
+        </Box>
+
         <SliderComponent
           testID="starsSlider"
           value={
@@ -161,7 +167,10 @@ export const FilterHotelsComponent = ({
           upperLimit={5}
           lowerLimit={1}
         />
-        <Text variant="headerSmall" marginBottom='s'>{t('order')}</Text>
+        <Box style={styles.optionRow}>
+          <ArrowUpDown size={24} color={colors.mainBackgroundDarker} />
+          <Text variant="headerSmall">{t('order')}</Text>
+        </Box>
 
         <RadioGroup
           containerStyle={styles.radioGroupContainer}
@@ -169,6 +178,7 @@ export const FilterHotelsComponent = ({
           onPress={value => setSelectedOrder(value as OrderByOptions)}
           layout="column"
           selectedId={selectedOrder}
+        
         />
 
         <Button
@@ -212,5 +222,12 @@ const styles = StyleSheet.create({
     gap: 10,
     alignItems: 'flex-start',
     marginBottom: 20,
+  },
+  optionRow: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    width: '100%',
+    gap: 10,
+    marginBottom: 10,
   },
 });

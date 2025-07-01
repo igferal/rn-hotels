@@ -1,97 +1,95 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# RNHotels
 
-# Getting Started
+## Setup Guide
+The project has been tested with an ios emulator.
+Node version 22.17.0
+RN version 0.80
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
 
-## Step 1: Start Metro
-
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
-
-To start the Metro dev server, run the following command from the root of your React Native project:
-
-```sh
-# Using npm
-npm start
-
-# OR using Yarn
-yarn start
 ```
-
-## Step 2: Build and run your app
-
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
+git clone https://github.com/igferal/rn-hotels.git
+cd rnhotels
+npm install 
+npx pod-install 
 npm run ios
-
-# OR using Yarn
-yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+## Project structure
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+```
+src/                          # Main source directory
+├── api/                      # UseHotels hook to download hotels json.
+├── types/                    # TypeScript type definitions
+│   ├── index.ts              # Main types (Hotel)
+├── ui/                       
+│   ├── components/           # UI Components
+│   ├── screens/              # Screen components
+│   └── navigation/           # Navigation configuration         
+│   └── theme/                # Theme configuration         
+├── utils/                    # Utility functions, such as filters and sorting
+├── i18n/                     # Internationalization
+│   └── languages/            
+└── tests/                    # Test files and configurations
+    ├── components/           # Component tests
+    ├── screens/              # Screen tests
+    ├── e2e/                  # Simple e2e flow 
+    
+```
 
-## Step 3: Modify your app
 
-Now that you have successfully run the app, let's make changes!
+## Libraries
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+The following 3rd party libraries have been used 
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+* React Native Navigation & dependencies
+    * Navigation between screens
+* react-i18next 
+    * I18n
+* react-native-svg & lucide-react-native
+    * Used in icons across all the screens
+* @gorhom/bottom-sheet
+    * Better ux component with filter options
+* @react-native-community/slider
+    * Cost filter
+* react-native-maps
+    * Hotel location component in Detail Screen
+* @shopify/restyle
+    * Reusing theme across the app.
+* react-native-radio-buttons-group
+    * Choose just one sorting in the filters and sort sheet.
+* @tanstack/react-query
+    * There's no api, it's a single json, it could be hardcoded in a ts file exporting an array. But, wrapping the json call in react-query provides cache, future mantainability and the option to simulate the filters and sorting easily.
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
 
-## Congratulations! :tada:
+## User Guide
 
-You've successfully run and modified your React Native App. :partying_face:
+![ListViewImage](readme-images/list.jpeg) 
 
-### Now what?
+From the Main Screen you can see the hotels at a glance. For each hotel you have easy visibility of the name, location, stars, cost per night and user rating.
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+![Filters](readme-images/filter.jpeg)
 
-# Troubleshooting
+From the main screen you can also acces the filters sheet where you can search hotels until a certain cost threshold, maximu starts, or sorting them.
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+![Detail Image 1](readme-images/list.jpeg)
+![Detail Image 2](readme-images/list.jpeg)
 
-# Learn More
+When you touch in a hotel card you are redirected to the hotel detail screen.
 
-To learn more about React Native, take a look at the following resources:
+Here you have the rest of the information avialable to the hotel
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+* Check-in and Check-out times
+* Hotel location with map preview
+* Contact information (touching both email and phone opens mail or phone app)
+* Image gallery (trivial implementation where you change the header image)
+
+
+### Testing
+
+## Components and screens
+
+Simple testing provided by jest and react-native-testing libraries, run with `npm run test`
+
+## e2e
+
+Very basic e2e testing with maestro, [(Install Guide)](https://github.com/mobile-dev-inc/maestro-docs/blob/main/getting-started/installing-maestro/README.md), with the app already installed and the emulator running just run `npm run e2e`
