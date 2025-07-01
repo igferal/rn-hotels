@@ -1,0 +1,18 @@
+# this a react native maestro yaml test file
+appId: dev.igferal.rnhotels
+---
+- launchApp
+- assertVisible:
+    text: "Hotels"
+- tapOn:
+    id: "filterButton"
+- assertVisible:
+    text: "APPLY"
+- tapOn:
+    id : "applyFilters"
+- tapOn:
+    id: "pressable-hotel-12330"
+- assertVisible:
+    text: "Holiday Inn Express"
+- assertVisible:
+    text: "User Rating"

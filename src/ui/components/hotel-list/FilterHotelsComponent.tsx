@@ -126,10 +126,10 @@ export const FilterHotelsComponent = ({
       onClose={handleClose}
       enablePanDownToClose
       enableDynamicSizing
-      snapPoints={['80%', '90%']}
+      snapPoints={['85%', '90%']}
     >
       <BottomSheetView style={styles.contentContainer}>
-        <Text variant="headerSmall" marginBottom="s">
+        <Text variant="headerSmall" accessibilityLabel={t('filters.title')} marginBottom="s">
           {t('filters.title')}
         </Text>
         <Text variant="body" marginBottom="s">
@@ -161,7 +161,7 @@ export const FilterHotelsComponent = ({
           upperLimit={5}
           lowerLimit={1}
         />
-        <Text variant="headerSmall">{t('order')}</Text>
+        <Text variant="headerSmall" marginBottom='s'>{t('order')}</Text>
 
         <RadioGroup
           containerStyle={styles.radioGroupContainer}

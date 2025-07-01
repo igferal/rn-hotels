@@ -13,7 +13,7 @@ type SliderComponentProps = {
   lowerLimit: number;
   reverse?: boolean;
   testID?: string;
-  };
+};
 
 /**
  * Custom slider component, providing theme support, upper and lower limits.
@@ -52,6 +52,8 @@ export const SliderComponent = ({
           value={sliderValue.toString()}
           onChangeText={handleTextInputChange}
           testID={`${testID}-input`}
+          accessible={true}
+          accessibilityLabel={`${testID}-input`}
         />
         <Text>{reverse ? lowerLimit : upperLimit}</Text>
       </Box>

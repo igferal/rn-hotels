@@ -20,7 +20,10 @@ export const HotelListElement = ({ hotel, onPress }: HoteListElementProps) => {
 
   return (
     <TouchableOpacity
+      accessible={true}
+      testID={`pressable-hotel-${hotel.id}`}
       onPress={onPress}
+      accessibilityLabel={`pressable-hotel-${hotel.id}`}
       style={[styles.container, styles.shadowContainer]}
     >
       <Box
