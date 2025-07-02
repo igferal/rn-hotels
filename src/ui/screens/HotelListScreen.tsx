@@ -34,11 +34,7 @@ export const HotelListScreen = () => {
   if (isLoading) {
     return <LoadingHotelListComponent />;
   }
-
-  if (error) {
-    return <Text>Error: {error.message}</Text>;
-  }
-
+  
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
       <Box
