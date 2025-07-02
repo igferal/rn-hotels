@@ -4,7 +4,7 @@ import { Theme } from 'ui/theme/theme';
 import Box from 'ui/components/restyles/Box';
 import Text from 'ui/components/restyles/Text';
 import { useState } from 'react';
-import { TextInput } from 'react-native';
+import { StyleSheet, TextInput } from 'react-native';
 
 type SliderComponentProps = {
   value: number;
@@ -19,7 +19,6 @@ type SliderComponentProps = {
  * Custom slider component, providing theme support, upper and lower limits.
  * User can input manually values too.
  */
-
 export const SliderComponent = ({
   value,
   onValueChange,
@@ -59,7 +58,7 @@ export const SliderComponent = ({
       </Box>
 
       <Slider
-        style={{ width: '100%', height: 40 }}
+        style={styles.slider}
         value={sliderValue}
         inverted={reverse}
         onValueChange={handleValueChange}
@@ -73,3 +72,10 @@ export const SliderComponent = ({
     </Box>
   );
 };
+
+const styles = StyleSheet.create({
+  slider: {
+    width: '100%',
+    height: 40,
+  },
+});

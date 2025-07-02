@@ -5,7 +5,7 @@ import Text from 'ui/components/restyles/Text';
 import { Button } from 'ui/components/custom/Button';
 import RadioGroup from 'react-native-radio-buttons-group';
 import Box from 'ui/components/restyles/Box';
-import { ArrowUp, ArrowUpDown, Coins, Filter, Star } from 'lucide-react-native';
+import { ArrowUpDown, Coins, Filter, Star } from 'lucide-react-native';
 import { useTheme } from '@shopify/restyle';
 import { Theme } from 'ui/theme/theme';
 import { useTranslation } from 'react-i18next';
@@ -151,7 +151,7 @@ export const FilterHotelsComponent = ({
           lowerLimit={0}
         />
 
-        <Box style={[styles.optionRow, { marginTop: 10 }]}>
+        <Box style={[styles.optionRow, styles.marginTop]}>
           <Star size={24} color={colors.mainBackgroundDarker} />
           <Text variant="body">{t('filters.stars')}</Text>
         </Box>
@@ -178,7 +178,6 @@ export const FilterHotelsComponent = ({
           onPress={value => setSelectedOrder(value as OrderByOptions)}
           layout="column"
           selectedId={selectedOrder}
-        
         />
 
         <Button
@@ -193,7 +192,7 @@ export const FilterHotelsComponent = ({
           variant="primary"
           outline
           onPress={onReset}
-          style={{ marginTop: 10 }}
+          style={styles.button}
         />
       </BottomSheetView>
     </BottomSheet>
@@ -229,5 +228,11 @@ const styles = StyleSheet.create({
     width: '100%',
     gap: 10,
     marginBottom: 10,
+  },
+  button: {
+    marginTop: 10,
+  },
+  marginTop: {
+    marginTop: 10,
   },
 });

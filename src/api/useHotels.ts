@@ -9,7 +9,7 @@ const API_URL = 'https://technology.lastminute.com/api/hotel.json';
 /***
  * This hook is used to fetch the hotels from the API.
  * Even is a json using react query allow us to cache the data and use it in the app.
- * We also here mock the filters and order by options.
+ * It is also used to mock the filters and order by options.
  */
 export const useHotels = () => {
   const [filters, setFilters] = useState<FilterOptions[]>([]);

@@ -35,7 +35,6 @@ export const HotelListElement = ({ hotel, onPress }: HoteListElementProps) => {
       >
         <Box style={styles.imageContainer}>
           <FallbackImage source={hotel.gallery[0]} style={styles.image} />
-
           <Text
             variant="body"
             color="whiteBackground"

@@ -7,8 +7,11 @@ export type FallbackImageProps = {
   fallbackImageUri?: string;
 };
 
+const FALLBACK_IMAGE_URI =
+  'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2009/3/3/1236119197406/Cromwell-Crown-hotel-001.jpg?width=465&dpr=1&s=none&crop=none';
+
 /**
- * Multiple of the api images are broken so we need to use a fallback image.
+ * Many of the api images are broken so we need to use a fallback image.
  */
 export const FallbackImage = ({
   source,
@@ -17,9 +20,7 @@ export const FallbackImage = ({
 }: FallbackImageProps) => {
   const [error, setError] = useState(false);
   const fallbackImage = {
-    uri:
-      fallbackImageUri ||
-      'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2009/3/3/1236119197406/Cromwell-Crown-hotel-001.jpg?width=465&dpr=1&s=none&crop=none',
+    uri: fallbackImageUri || FALLBACK_IMAGE_URI,
   };
 
   return (
