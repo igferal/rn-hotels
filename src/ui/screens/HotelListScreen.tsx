@@ -17,7 +17,6 @@ export const HotelListScreen = () => {
   const {
     data,
     isLoading,
-    error,
     setOrder,
     setFilters,
     order,
@@ -34,7 +33,7 @@ export const HotelListScreen = () => {
   if (isLoading) {
     return <LoadingHotelListComponent />;
   }
-  
+
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
       <Box
