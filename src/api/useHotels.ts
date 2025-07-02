@@ -19,8 +19,7 @@ export const useHotels = () => {
     try {
       const response = await fetch(API_URL);
       const data = (await response.json()) as Hotel[];
-      const filteredHotels = filterByCriteria(data, filters);
-      return sortHotels(filteredHotels, order);
+      return data;
     } catch (error) {
       return [];
     }
@@ -31,13 +30,18 @@ export const useHotels = () => {
     queryFn: () => fetchHotels(),
   });
 
+  // Grab the actual max price from all the hotels and use it to set the max price in the slider
+  // hotel list should be before filtering
   const maxHotelPrice = data?.reduce(
     (max, hotel) => Math.max(max, hotel.price),
     0,
   );
 
+  const filteredHotels = filterByCriteria(data ?? [], filters);
+  const sortedHotels = sortHotels(filteredHotels, order);
+
   return {
-    data,
+    data: sortedHotels,
     isLoading,
     error,
     filters,
