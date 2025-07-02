@@ -16,6 +16,10 @@ type HotelMapProps = {
   onPressHotel: (hotel: Hotel) => void;
 };
 
+/**
+ * This component is used to display a map of the hotels and a bottom sheet with the hotels.
+ * Uses a Modal instead of bottomsheet to render the view at the bottom of the screen.
+ */
 export const HotelMapList = ({ hotels, onPressHotel }: HotelMapProps) => {
   const firstHotel = hotels[0];
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);

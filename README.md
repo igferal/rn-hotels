@@ -71,6 +71,10 @@ From the Main Screen you can see the hotels at a glance. For each hotel you have
 
 From the main screen you can also access the filters sheet where you can search for hotels up to a certain cost threshold, maximum stars, or sort them.
 
+![Map View](readme-images/mapview.jpeg)
+
+And finally from the Main List you can see all the hotels in an Map View, markers are the library ones to be more performant. Once you tap on them it opens a little description view and from it you can tap to navigate to the actual detail screen.
+
 ![Detail Image 1](readme-images/detail.jpeg)
 ![Detail Image 2](readme-images/detail2.jpeg)
 
