@@ -1,19 +1,14 @@
 import React from 'react';
-import { render } from '@testing-library/react-native';
+import { fireEvent, render, screen } from '@testing-library/react-native';
 
-import { HotelDetailScreen } from 'ui/screens/HotelDetailScreen';
+import { HotelListScreen } from 'ui/screens/HotelListScreen';
 import { ThemeProvider } from 'ui/theme/ThemeProvider';
+import { fakeHotels } from '../utils/fakeData';
 
 // Mock the restyles Text component
 jest.mock('ui/components/restyles/Text', () => {
   const { Text } = require('react-native');
   return (props: any) => <Text {...props} />;
-});
-
-// Mock the restyles Box component
-jest.mock('ui/components/restyles/Box', () => {
-  const { View } = require('react-native');
-  return (props: any) => <View {...props} />;
 });
 
 // Mock react-i18next
@@ -23,32 +18,22 @@ jest.mock('react-i18next', () => ({
   }),
 }));
 
+jest.mock('react-native-maps', () => {
+  const { View } = require('react-native');
+  return {
+    __esModule: true,
+    default: (props: any) => <View {...props} testID="map-view" />,
+    Marker: (props: any) => <View {...props} testID="map-marker" />,
+    CalloutSubview: (props: any) => <View {...props} testID="map-callout" />,
+    MapCallout: (props: any) => <View {...props} testID="map-callout" />,
+    MapView: (props: any) => <View {...props} testID="map-view" />,
+  };
+});
+
 // Mock react-navigation
 jest.mock('@react-navigation/native', () => ({
-  useRoute: () => ({
-    params: {
-      hotel: {
-        id: 1,
-        name: 'Test Hotel',
-        price: 120,
-        location: {
-          city: 'Test City',
-          address: 'Test Address',
-          latitude: 40.7614,
-          longitude: -73.9776,
-        },
-        stars: 4,
-        gallery: ['https://example.com/image.jpg'],
-        userRating: 4.5,
-        checkIn: { from: '15:00', to: '23:00' },
-        checkOut: { from: '07:00', to: '12:00' },
-        contact: {
-          phoneNumber: '+1 (212) 555-0123',
-          email: 'test@hotel.com',
-        },
-        currency: 'USD',
-      },
-    },
+  useNavigation: () => ({
+    navigate: jest.fn(),
   }),
 }));
 
@@ -57,53 +42,156 @@ jest.mock('react-native-safe-area-context', () => ({
   SafeAreaView: ({ children }: any) => children,
 }));
 
-// Mock react-native-maps
-jest.mock('react-native-maps', () => {
+jest.mock('@gorhom/bottom-sheet', () => {
+  const React = require('react');
   const { View } = require('react-native');
+
+  const BottomSheetComponent = (props: any) => {
+    return React.createElement(View, props, props.children);
+  };
+
+  class BottomSheet extends React.Component<any> {
+    snapToIndex() {}
+    snapToPosition() {}
+    expand() {}
+    collapse() {}
+    close() {}
+    forceClose() {}
+    present() {}
+
+    render() {
+      return this.props.children;
+    }
+  }
+  /*
+  IA generated mock for the BottomSheetModal
+  */
+  const BottomSheetModal = React.forwardRef((props: any, ref: any) => {
+    React.useImperativeHandle(ref, () => ({
+      present: jest.fn(),
+      dismiss: jest.fn(),
+    }));
+    return React.createElement(View, props, props.children);
+  });
+
   return {
     __esModule: true,
-    default: (props: any) => <View {...props} testID="map-view" />,
-    Marker: (props: any) => <View {...props} testID="map-marker" />,
+    default: BottomSheet,
+    BottomSheetView: BottomSheetComponent,
+    BottomSheetModal: BottomSheetModal,
   };
 });
 
-// Mock Linking
-jest.mock('react-native/Libraries/Linking/Linking', () => ({
-  openURL: jest.fn(() => Promise.resolve()),
+const mockUseHotels = jest.fn();
+
+jest.mock('api/useHotels', () => ({
+  useHotels: () => mockUseHotels(),
 }));
 
-// Mock Lucide icons
-jest.mock('lucide-react-native', () => ({
-  Calendar1: () => null,
-  HotelIcon: () => null,
-  ImageIcon: () => null,
-  MapPinIcon: () => null,
-  PhoneIcon: () => null,
-  UserRound: () => null,
-  MailIcon: () => null,
-  AlarmClockCheck: () => null,
-  AlarmClockMinus: () => null,
-}));
+describe('ScreenListTest', () => {
+  let mockFilters: any;
+  let mockSetFilters: jest.Mock;
 
-// Mock custom components
-jest.mock('ui/components/custom/StarRating', () => ({
-  StarRating: () => null,
-}));
+  beforeEach(() => {
+    mockFilters = {};
+    mockSetFilters = jest.fn(newFilters => {
+      if (typeof newFilters === 'function') {
+        mockFilters = newFilters(mockFilters);
+      } else {
+        mockFilters = newFilters;
+      }
+    });
 
-jest.mock('ui/components/custom/FallbackImage', () => ({
-  FallbackImage: () => null,
-}));
+    mockUseHotels.mockReturnValue({
+      data: fakeHotels,
+      isLoading: false,
+      error: null,
+      setOrder: jest.fn(),
+      setFilters: mockSetFilters,
+      order: 'name',
+      filters: mockFilters,
+      maxHotelPrice: 100,
+    });
+  });
 
-jest.mock('ui/components/custom/Button', () => ({
-  Button: () => null,
-}));
+  it('should render the screen list', () => {
+    render(
+      <ThemeProvider>
+        <HotelListScreen />
+      </ThemeProvider>,
+    );
+    expect(screen.getByText('hotelList.title')).toBeTruthy();
+  });
 
-it('should render the hotel detail screen', () => {
-  const { getByText } = render(
-    <ThemeProvider>
-      <HotelDetailScreen />
-    </ThemeProvider>,
-  );
-  
-  expect(getByText('Test Hotel')).toBeTruthy();
+  it('should render the screen list with hotels', () => {
+    mockFilters = [];
+    mockUseHotels.mockReturnValue({
+      data: fakeHotels,
+      isLoading: false,
+      error: null,
+      setOrder: jest.fn(),
+      setFilters: mockSetFilters,
+      order: 'name',
+      filters: mockFilters,
+      maxHotelPrice: 100,
+    });
+
+    render(
+      <ThemeProvider>
+        <HotelListScreen />
+      </ThemeProvider>,
+    );
+    expect(screen.getByText('hotelList.title')).toBeTruthy();
+    expect(screen.getAllByText(fakeHotels[0].name)).toBeTruthy();
+  });
+  it('should render show the filter modal when the filter button is pressed', () => {
+    mockFilters = [];
+    mockUseHotels.mockReturnValue({
+      data: fakeHotels,
+      isLoading: false,
+      error: null,
+      setOrder: jest.fn(),
+      setFilters: mockSetFilters,
+      order: 'name',
+      filters: mockFilters,
+      maxHotelPrice: 100,
+    });
+
+    render(
+      <ThemeProvider>
+        <HotelListScreen />
+      </ThemeProvider>,
+    );
+
+    const filterButton = screen.getByTestId('filterButton');
+    fireEvent.press(filterButton);
+    expect(screen.getByText('filters.title')).toBeTruthy();
+  });
+
+  it('should render the map with the hotels', () => {
+    mockFilters = [];
+    mockUseHotels.mockReturnValue({
+      data: fakeHotels,
+      isLoading: false,
+      error: null,
+      setOrder: jest.fn(),
+      setFilters: mockSetFilters,
+      order: 'name',
+      filters: mockFilters,
+      maxHotelPrice: 100,
+    });
+
+    render(
+      <ThemeProvider>
+        <HotelListScreen />
+      </ThemeProvider>,
+    );
+
+    const mapButton = screen.getByTestId('map-button');
+    fireEvent.press(mapButton);
+
+    const mapView = screen.getByTestId('map-view');
+    expect(mapView).toBeTruthy();
+    expect(screen.getByText('hotelLocations')).toBeTruthy();
+  });
 });

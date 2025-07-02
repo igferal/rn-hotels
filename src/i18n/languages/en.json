@@ -10,6 +10,7 @@
     "stars-asc": "Stars: Low to High",
     "stars-desc": "Stars: High to Low",
     "title": "Filters"
+
   },
   "hotelDetail": {
     "checkIn": "Check in:",
@@ -29,5 +30,6 @@
     "title": "Hotels"
   },
   "order": "Order by",
-  "resetFilters": "Reset Filters"
+  "resetFilters": "Reset Filters",
+  "hotelLocations": "Hotel Locations"
 }

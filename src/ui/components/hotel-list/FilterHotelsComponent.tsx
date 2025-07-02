@@ -76,11 +76,6 @@ export const FilterHotelsComponent = ({
 
   const [isVisible, setIsVisible] = useState(false);
 
-  // callbacks
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log('handleSheetChanges', index);
-  }, []);
-
   const handleClose = useCallback(() => {
     bottomSheetRef.current?.close();
     setIsVisible(false);
@@ -122,7 +117,6 @@ export const FilterHotelsComponent = ({
   ) : (
     <BottomSheet
       ref={bottomSheetRef}
-      onChange={handleSheetChanges}
       onClose={handleClose}
       enablePanDownToClose
       enableDynamicSizing

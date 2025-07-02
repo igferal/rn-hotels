@@ -1,7 +1,7 @@
 {
   "apply": "Aplicar",
   "filters": {
-    "price-asc": "Precio: Menor a Mayor",
+     "price-asc": "Precio: Menor a Mayor",
     "price-desc": "Precio: Mayor a Menor",
     "priceUntil": "Costo máximo",
     "rating-asc": "Valoración: Menor a Mayor",
@@ -28,5 +28,6 @@
     "title": "Hoteles"
   },
   "order": "Ordenar por",
-  "resetFilters": "Limpiar filtros"
+  "resetFilters": "Limpiar filtros",
+  "hotelLocations": "Ubicaciones de hoteles"
 }

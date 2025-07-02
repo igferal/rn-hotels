@@ -11,6 +11,12 @@ appId: dev.igferal.rnhotels
 - tapOn:
     id : "applyFilters"
 - tapOn:
+    id: "map-button"
+- assertVisible:
+    text: "map-view"
+- tapOn:
+    id: "map-button"
+- tapOn:
     id: "pressable-hotel-12330"
 - assertVisible:
     text: "Holiday Inn Express"
