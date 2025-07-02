@@ -16,6 +16,9 @@ type HotelMapProps = {
   onPressHotel: (hotel: Hotel) => void;
 };
 
+const DEFAULT_LAT = 45.8289755;
+const DEFAULT_LONG = 9.0050653;
+
 /**
  * This component is used to display a map of the hotels and a bottom sheet with the hotels.
  * Uses a Modal instead of bottomsheet to render the view at the bottom of the screen.
@@ -39,8 +42,8 @@ export const HotelMapList = ({ hotels, onPressHotel }: HotelMapProps) => {
     <Marker
       key={hotel.id}
       coordinate={{
-        latitude: hotel.location.latitude,
-        longitude: hotel.location.longitude,
+        latitude: hotel?.location?.latitude ?? DEFAULT_LAT,
+        longitude: hotel?.location?.longitude ?? DEFAULT_LONG,
       }}
       pointerEvents="none"
     >
@@ -92,8 +95,8 @@ export const HotelMapList = ({ hotels, onPressHotel }: HotelMapProps) => {
               mapRef.current?.fitToElements();
             }}
             initialRegion={{
-              latitude: firstHotel.location.latitude,
-              longitude: firstHotel.location.longitude,
+              latitude: firstHotel?.location?.latitude ?? DEFAULT_LAT,
+              longitude: firstHotel?.location?.longitude ?? DEFAULT_LONG,
               latitudeDelta: 0.01,
               longitudeDelta: 0.01,
             }}
