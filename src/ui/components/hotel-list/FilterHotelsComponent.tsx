@@ -1,11 +1,11 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import Text from 'ui/components/restyles/Text';
 import { Button } from 'ui/components/custom/Button';
 import RadioGroup from 'react-native-radio-buttons-group';
 import Box from 'ui/components/restyles/Box';
-import { ArrowUpDown, Coins, Filter, Star } from 'lucide-react-native';
+import { ArrowUpDown, Coins, Filter, Hotel, Star } from 'lucide-react-native';
 import { useTheme } from '@shopify/restyle';
 import { Theme } from 'ui/theme/theme';
 import { useTranslation } from 'react-i18next';
@@ -130,13 +130,29 @@ export const FilterHotelsComponent = ({
           </Text>
         </Box>
         <Box style={styles.optionRow}>
+          <Hotel size={24} color={colors.mainBackgroundDarker} />
+          <Text variant="body">Nombre</Text>
+        </Box>
+        <TextInput
+          style={styles.input}
+          placeholder={t('filters.name')}
+          value={
+            selectedFilters.find(filter => filter.type === 'name')?.value || ''
+          }
+          onChangeText={value =>
+            setSelectedFilters([{ type: 'name', value: value }])
+          }
+        />
+        <Box style={styles.optionRow}>
           <Coins size={24} color={colors.mainBackgroundDarker} />
           <Text variant="body">{t('filters.priceUntil')}</Text>
         </Box>
         <SliderComponent
           testID="priceSlider"
           value={
-            selectedFilters.find(filter => filter.type === 'price')?.value || 0
+            Number(
+              selectedFilters.find(filter => filter.type === 'price')?.value,
+            ) || 0
           }
           onValueChange={value =>
             setSelectedFilters([{ type: 'price', value }])
@@ -153,7 +169,9 @@ export const FilterHotelsComponent = ({
         <SliderComponent
           testID="starsSlider"
           value={
-            selectedFilters.find(filter => filter.type === 'stars')?.value || 5
+            Number(
+              selectedFilters.find(filter => filter.type === 'stars')?.value,
+            ) || 5
           }
           onValueChange={value => {
             setSelectedFilters([{ type: 'stars', value }]);
@@ -228,5 +246,10 @@ const styles = StyleSheet.create({
   },
   marginTop: {
     marginTop: 10,
+  },
+  input: {
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 10,
   },
 });

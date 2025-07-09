@@ -13,6 +13,8 @@ const filterByCriteria = (hotels: Hotel[], filters: FilterOptions[]) => {
           return hotel.stars <= filter.value;
         case 'userRating':
           return hotel.userRating <= filter.value;
+        case 'name':
+          return hotel.name.toLowerCase().includes(filter.value.toLowerCase());
         default:
           return true;
       }

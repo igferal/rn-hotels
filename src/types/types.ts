@@ -39,12 +39,15 @@ export type OrderByOptions =
   | 'name-asc'
   | 'name-desc';
 
-export type FilterOptions = {
-  type: 'price' | 'stars' | 'userRating';
-  value: number;
-};
-
-
+export type FilterOptions =
+     {
+      type: 'price' | 'stars' | 'userRating';
+      value: number;
+    }
+  | {
+      type: 'name';
+      value: string;
+    };
 
 export type HotelDetailStackParamList = {
   HotelDetail: { hotel: Hotel };
