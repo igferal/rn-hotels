@@ -28,6 +28,11 @@ import { useTranslation } from 'react-i18next';
 import { Button } from 'ui/components/custom/Button';
 import { useTheme } from '@shopify/restyle';
 import { Theme } from 'ui/theme/theme';
+import {
+  Gesture,
+  GestureDetector,
+} from 'react-native-gesture-handler';
+import { runOnJS } from 'react-native-reanimated';
 
 export const HotelDetailScreen = () => {
   // Hacky but typesafe
@@ -53,9 +58,39 @@ export const HotelDetailScreen = () => {
     hotel.gallery[0],
   );
 
+  const onSwipeImageLeft = () => {
+    const currentImageIndex = hotel.gallery.indexOf(currentImagePreview);
+
+    if (currentImageIndex === hotel.gallery.length - 1) {
+      setCurrentImagePreview(hotel.gallery[0]);
+    } else {
+      setCurrentImagePreview(hotel.gallery[currentImageIndex + 1]);
+    }
+  };
+
+  const onSwipeImageRight = () => {
+    const currentImageIndex = hotel.gallery.indexOf(currentImagePreview);
+    if (currentImageIndex === 0) {
+      setCurrentImagePreview(hotel.gallery[hotel.gallery.length - 1]);
+    } else {
+      setCurrentImagePreview(hotel.gallery[currentImageIndex - 1]);
+    }
+  };
+
+  const swipe = Gesture.Pan().onEnd(e => {
+    console.log('e', e);
+    if (e.translationX > 0) {
+      runOnJS(onSwipeImageLeft)();
+    } else {
+      runOnJS(onSwipeImageRight)();
+    }
+  });
+
   return (
     <SafeAreaView edges={['bottom']}>
-      <FallbackImage source={currentImagePreview} style={styles.image} />
+      <GestureDetector gesture={swipe} > 
+        <FallbackImage source={currentImagePreview} style={styles.image} />
+      </GestureDetector>
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.scrollContent}
