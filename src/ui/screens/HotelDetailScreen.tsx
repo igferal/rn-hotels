@@ -25,9 +25,10 @@ import {
 import MapView, { Marker } from 'react-native-maps';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button } from 'ui/components/custom/Button';
+
 import { useTheme } from '@shopify/restyle';
 import { Theme } from 'ui/theme/theme';
+import { BookHotelModal } from 'ui/components/hotel-detail/BookHotelModal';
 
 export const HotelDetailScreen = () => {
   // Hacky but typesafe
@@ -170,11 +171,7 @@ export const HotelDetailScreen = () => {
           />
         </MapView>
         <Box marginTop="m">
-          <Button
-            variant="primary"
-            onPress={() => {}}
-            title={t('hotelDetail.reserve')}
-          />
+          <BookHotelModal hotel={hotel} />
         </Box>
       </ScrollView>
     </SafeAreaView>

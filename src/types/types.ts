@@ -44,8 +44,12 @@ export type FilterOptions = {
   value: number;
 };
 
-
-
 export type HotelDetailStackParamList = {
   HotelDetail: { hotel: Hotel };
+};
+
+export type BookedDate = Record<string, boolean>;
+
+export type BookedDates = {
+  [key: string]: BookedDate;
 };

@@ -5,6 +5,7 @@ import { ThemeProvider } from './src/ui/theme/ThemeProvider';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { StyleSheet } from 'react-native';
+import { BookedDatesProvider } from 'ui/components/Context/BookedContext';
 
 const queryClient = new QueryClient();
 
@@ -14,7 +15,9 @@ export default function App() {
       <ThemeProvider>
         <GestureHandlerRootView style={styles.container}>
           <BottomSheetModalProvider>
-            <MainNavigator />
+            <BookedDatesProvider>
+              <MainNavigator />
+            </BookedDatesProvider>
           </BottomSheetModalProvider>
         </GestureHandlerRootView>
       </ThemeProvider>
