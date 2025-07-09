@@ -5,16 +5,24 @@ import { ThemeProvider } from './src/ui/theme/ThemeProvider';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { StyleSheet } from 'react-native';
+import { BookedHotelsContext } from 'context/BookedHotelsContext';
+import { useState } from 'react';
 
 const queryClient = new QueryClient();
 
 export default function App() {
+  const [bookedHotels, setBookedHotels] = useState<number[]>([]);
+
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <GestureHandlerRootView style={styles.container}>
           <BottomSheetModalProvider>
-            <MainNavigator />
+            <BookedHotelsContext.Provider
+              value={{ bookedHotels, setBookedHotels }}
+            >
+              <MainNavigator />
+            </BookedHotelsContext.Provider>
           </BottomSheetModalProvider>
         </GestureHandlerRootView>
       </ThemeProvider>

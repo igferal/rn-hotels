@@ -23,17 +23,21 @@ import {
   AlarmClockMinus,
 } from 'lucide-react-native';
 import MapView, { Marker } from 'react-native-maps';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'ui/components/custom/Button';
 import { useTheme } from '@shopify/restyle';
 import { Theme } from 'ui/theme/theme';
+import { BookedHotelsContext } from 'context/BookedHotelsContext';
 
 export const HotelDetailScreen = () => {
   // Hacky but typesafe
   const { hotel } = useRoute().params as { hotel: Hotel };
   const { t } = useTranslation();
   const theme = useTheme<Theme>();
+
+  const { bookedHotels, setBookedHotels } = useContext(BookedHotelsContext);
+
 
   const onPressEmail = () => {
     Linking.openURL(`mailto:${hotel.contact.email}`);
@@ -52,6 +56,8 @@ export const HotelDetailScreen = () => {
   const [currentImagePreview, setCurrentImagePreview] = useState(
     hotel.gallery[0],
   );
+
+  const isBooked = bookedHotels.includes(hotel.id);
 
   return (
     <SafeAreaView edges={['bottom']}>
@@ -170,11 +176,17 @@ export const HotelDetailScreen = () => {
           />
         </MapView>
         <Box marginTop="m">
-          <Button
-            variant="primary"
-            onPress={() => {}}
-            title={t('hotelDetail.reserve')}
-          />
+          {!isBooked ? (
+            <Button
+              variant="primary"
+              onPress={() => {
+                setBookedHotels([...bookedHotels, hotel.id]);
+              }}
+              title={t('hotelDetail.reserve')}
+            />
+          ) : (
+            <Text variant="body">{t('hotelDetail.booked')}</Text>
+          )}
         </Box>
       </ScrollView>
     </SafeAreaView>
